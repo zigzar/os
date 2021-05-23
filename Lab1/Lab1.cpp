@@ -11,9 +11,8 @@ void* threadFunc1(void* args)
 	args_t* pArgs = (args_t*)args;
 	while(pArgs->isActive)
 	{
-		std::cout << "1 ";
-		std::cout.flush();
 		sleep(1);
+		pArgs->value = 1;
 	}
 	return 0;
 }
@@ -23,8 +22,7 @@ void* threadFunc2(void* args)
 	args_t* pArgs = (args_t*)args;
 	while(pArgs->isActive)
 	{
-		std::cout << "2 ";
-		std::cout.flush();
+		pArgs->value = 2;
 		sleep(2);
 	}
 	return 0;
@@ -51,6 +49,7 @@ int main()
 	{
 		std::cout << arg.value << " ";
 		std::cout.flush();
+		sleep(1);
 	}
 	pthread_join(th1, NULL);
 	pthread_join(th2, NULL);
