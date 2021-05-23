@@ -35,6 +35,7 @@ void* aborterFunc(void* args)
 	args_t* pArgs = (args_t*)args;
 	std::cin.get();
 	pArgs->isActive = false;
+	return 0;
 }
 
 int main()
