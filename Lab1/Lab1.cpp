@@ -1,18 +1,24 @@
 #include <iostream>
 #include <pthread.h>
-#include <unistd.h>
 typedef struct args_tag {
 	bool isActive;
 	int value;
 } args_t;
+
+void sleep(int ms) {
+    timespec tp;
+    tp.tv_sec = ms / 1000;
+    tp.tv_nsec = (ms % 1000) * 1000000;
+    nanosleep(&tp, NULL);
+}
 
 void* threadFunc1(void* args)
 {
 	args_t* pArgs = (args_t*)args;
 	while(pArgs->isActive)
 	{
-		sleep(1);
 		pArgs->value = 1;
+		sleep(300);
 	}
 	return 0;
 }
@@ -23,7 +29,7 @@ void* threadFunc2(void* args)
 	while(pArgs->isActive)
 	{
 		pArgs->value = 2;
-		sleep(2);
+		sleep(200);
 	}
 	return 0;
 }
@@ -49,7 +55,7 @@ int main()
 	{
 		std::cout << arg.value << " ";
 		std::cout.flush();
-		sleep(1);
+		sleep(150);
 	}
 	pthread_join(th1, NULL);
 	pthread_join(th2, NULL);
