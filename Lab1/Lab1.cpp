@@ -47,18 +47,19 @@ int main()
 	args_t arg;
 	arg.isActive = true;
 	pthread_t th1, th2, aborter;
+	int status1, status2, statusAborter;
 	std::cout << "Press Enter to stop program:" << std::endl;
-	pthread_create(&th1, NULL, threadFunc1,  (void*)&arg);
-	pthread_create(&th2, NULL, threadFunc2,  (void*)&arg);
-	pthread_create(&aborter, NULL, aborterFunc,  (void*)&arg);
+	status1 = pthread_create(&th1, NULL, threadFunc1,  (void*)&arg);
+	status2 = pthread_create(&th2, NULL, threadFunc2,  (void*)&arg);
+	statusAborter = pthread_create(&aborter, NULL, aborterFunc,  (void*)&arg);
 	while (arg.isActive)
 	{
 		std::cout << arg.value << " ";
 		std::cout.flush();
 		sleep(150);
 	}
-	pthread_join(th1, NULL);
-	pthread_join(th2, NULL);
-	pthread_join(aborter, NULL);
+	pthread_join(th1, (void**)&status1);
+	pthread_join(th2, (void**)&status2);
+	pthread_join(aborter, (void**)&statusAborter);
 	return 0;
 }
