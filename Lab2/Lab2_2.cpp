@@ -3,8 +3,8 @@
 #include <semaphore.h>
 #include <time.h>
 
-#define CANT_LOCK 0
-#define CANT_UNLOCK -1
+#define CAN_LOCK 0
+#define CAN_UNLOCK 0
 
 sem_t semaphore;
 
@@ -24,7 +24,7 @@ void *threadFunc1(void *flag)
     while (*((bool *)flag))
     {
         status = sem_trywait(&semaphore);
-        if (status != CANT_LOCK)
+        if (status != CAN_LOCK)
         {
             for (int i = 0; i < NUM_PRINT; i++)
             {
@@ -34,7 +34,7 @@ void *threadFunc1(void *flag)
             }
             std::cout << "\t";
             std::cout.flush();
-            if (sem_post(&semaphore) == CANT_UNLOCK)
+            if (sem_post(&semaphore) != CAN_UNLOCK)
             {
                 exit(1);
             }
@@ -51,7 +51,7 @@ void *threadFunc2(void *flag)
     while (*((bool *)flag))
     {
         status = sem_trywait(&semaphore);
-        if (status != CANT_LOCK)
+        if (status != CAN_LOCK)
         {
             for (int i = 0; i < NUM_PRINT; i++)
             {
@@ -61,7 +61,7 @@ void *threadFunc2(void *flag)
             }
             std::cout << "\t";
             std::cout.flush();
-            if (sem_post(&semaphore) == CANT_UNLOCK)
+            if (sem_post(&semaphore) != CAN_UNLOCK)
             {
                 exit(1);
             }
