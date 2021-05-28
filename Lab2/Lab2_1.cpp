@@ -26,6 +26,8 @@ void *threadFunc1(void *flag)
 			std::cout.flush();
 			sleep(100);
 		}
+		std::cout << "\t";
+		std::cout.flush();
 		sem_post(&semaphore);
 		sleep(500);
 	}
@@ -43,6 +45,8 @@ void *threadFunc2(void *flag)
 			std::cout.flush();
 			sleep(100);
 		}
+		std::cout << "\t";
+		std::cout.flush();
 		sem_post(&semaphore);
 		sleep(300);
 	}
