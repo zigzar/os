@@ -23,7 +23,7 @@ void *sender(void *flag)
     char buf[BUFFER_SIZE];
     std::string messageStart = "I ";
     std::string messageCenter = "so ";
-    std::string messageEnd = "hate C++";
+    std::string messageEnd = "hate C++ and C";
     std::string message;
     int hateRate = 1;
     while (*((bool *)flag))
